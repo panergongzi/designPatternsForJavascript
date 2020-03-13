@@ -1,0 +1,107 @@
+<body>
+    <pre>
+我们一起来学习一下怎么封装一个初级的链表
+链表提供一下属性和方法
+1,pos指针当前位置
+2,
+    </pre>
+</body>
+
+<script>
+
+    class List {
+        constructor(...param) {
+            this.pos = 0;//当前位置
+            this.length = param.length;//列表的长度
+            this.arr = param;//用来储存数据的数组
+        }
+        //清空数组
+        clear() {
+            this.arr = [];
+            this.pos = 0;
+            this.length = 0;
+
+        }
+        //将数组里元素都打印出来
+        toSting() {
+            return this.arr
+        }
+        //获取元素
+        getElement() {
+            return this.arr[this.pos]
+        }
+        //插入元素
+        insert(el, after) {
+            var indexEl = this.arr.findIndex((item, index) => {
+                return item === after
+            });
+            if (indexEl > -1) {
+                this.length++;
+                this.arr.splice(indexEl + 1, 0, el)
+                return true
+            }
+            return false;
+        }
+        //向后插入元素
+        append(el) {
+            this.arr.push(el)
+            this.length++;
+        }
+        //移除数据
+        remove(el) {
+            var indexEl = this.arr.findIndex((item) => item === el);
+            if (indexEl > -1) {
+                this.arr.splice(indexEl, 1)
+                this.length--;
+                return true
+            }
+            return false
+        }
+        //读出第一个元素
+        front() {
+            return this.arr[0]
+        }
+        //获取最后一个元素
+        end() {
+            if (this.length > 0)
+                return this.arr[this.length - 1];
+            return this.front();
+        }
+        //向前移动一位
+        prev() {
+            if (this.pos > 0)
+                --this.pos;
+        }
+        //向后移动一位
+        next() {
+            if (this.pos < this.length) {
+                this.pos++
+            }
+        }
+        //判断后一位
+        hasNext() {
+            return this.pos < this.length
+        }
+        //判断前一位
+        hasPrev() {
+            return this.pos > 0
+        }
+        //返回列表当前位置
+        currPos() {
+            return this.pos
+        }
+        //将当前位置移动到指定位置
+        moveTo(position) {
+            this.pos = position
+        }
+        //声明一个静态方法 //不被继承的方法
+        static find(el) {
+            for (this.front(); this.hasNext(); this.next()) {
+                if (this.getElement() === el) {
+                    return this.pos;
+                }
+            }
+        }
+
+    }
+</script>
